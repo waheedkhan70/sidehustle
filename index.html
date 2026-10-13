@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SideHustle AI — 100% Private Local Open-Source AI Suite</title>
+  <meta name="description" content="Commercial-grade private AI workspace for freelancers & ecommerce sellers. Powered by open-weight models with ₹0 cloud fees and zero data leakage.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">
+            <span>SideHustle</span><span class="gradient-text">.AI</span>
+            <span class="badge badge-open-source">Open-Weight Core</span>
+          </div>
+          <p class="brand-subtitle">Private Freelance Ledger &amp; Marketplace Listing Studio</p>
+        </div>
+      </div>
+
+      <!-- Engine Status & Switcher -->
+      <div class="engine-bar">
+        <div class="engine-pill" id="engineStatusPill" title="Click to configure open-weight backend">
+          <span class="status-dot active"></span>
+          <span class="engine-name" id="currentEngineLabel">Local Neural Engine</span>
+          <span class="model-badge" id="currentModelLabel">SmolLM2 / Llama-3.2</span>
+        </div>
+        <button id="openConfigBtn" class="btn btn-secondary btn-sm" aria-label="Configure AI Model Engine">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          Models
+        </button>
+        <button id="viewWhyOpenBtn" class="btn btn-outline btn-sm">
+          <span>Why Open AI?</span>
+          <span class="chip-save">₹0 Cloud Fees</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs-nav" aria-label="Main Navigation">
+      <div class="tabs-container">
+        <button class="tab-btn active" data-tab="tab-receipts" id="navReceiptsTab">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          Invoice &amp; Receipt Vault
+          <span class="tab-tag">100% Client Privacy</span>
+        </button>
+        <button class="tab-btn" data-tab="tab-listings" id="navListingsTab">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          Marketplace Listing Crafter
+          <span class="tab-tag">Etsy / eBay / Shopify</span>
+        </button>
+        <button class="tab-btn" data-tab="tab-whyopen" id="navWhyOpenTab">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          Why Open Innovation?
+          <span class="tab-tag">ROI &amp; Privacy Audit</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="main-content">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: INVOICE & RECEIPT SORTER -->
+    <!-- ========================================== -->
+    <section id="tab-receipts" class="tab-pane active">
+      <div class="view-header">
+        <div>
+          <h2>Client Invoice &amp; Expense Vault</h2>
+          <p class="text-muted">Process client invoices, subcontractor receipts, and business expenses locally. Confidential rates and client identities <strong>never</strong> leave your machine.</p>
+        </div>
+        <div class="quick-samples">
+          <span class="text-sm">Load Preset:</span>
+          <button class="btn btn-chip" id="loadSampleInvoiceBtn">Web Dev Invoice (₹45,000)</button>
+          <button class="btn btn-chip" id="loadSampleReceiptBtn">Hardware Expense (₹24,999)</button>
+          <button class="btn btn-chip" id="loadSampleConsultingBtn">Consulting Retainer (₹85,000)</button>
+        </div>
+      </div>
+
+      <!-- Metrics Row -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-title">Total Processed</span>
+            <span class="metric-icon">💰</span>
+          </div>
+          <div class="metric-value" id="metricTotalAmount">₹0.00</div>
+          <div class="metric-sub" id="metricCount">0 records logged</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-title">Est. Tax Deductions</span>
+            <span class="metric-icon">🛡️</span>
+          </div>
+          <div class="metric-value text-success" id="metricTaxSavings">₹0.00</div>
+          <div class="metric-sub">Eligible write-offs</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-title">Billable to Clients</span>
+            <span class="metric-icon">💼</span>
+          </div>
+          <div class="metric-value text-accent" id="metricBillableAmount">₹0.00</div>
+          <div class="metric-sub" id="metricBillableCount">0 reimbursable items</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-title">Privacy Score</span>
+            <span class="metric-icon">🔒</span>
+          </div>
+          <div class="metric-value text-highlight">100% Local</div>
+          <div class="metric-sub">0 Bytes sent to cloud servers</div>
+        </div>
+      </div>
+
+      <!-- Studio Layout: Left Input / Right Structured Result -->
+      <div class="studio-grid">
+        <!-- Input Panel -->
+        <div class="glass-card panel">
+          <div class="panel-header">
+            <h3>1. Document Ingestion</h3>
+            <span class="badge badge-subtle">Image / OCR / Raw Text</span>
+          </div>
+
+          <div class="dropzone" id="receiptDropzone">
+            <input type="file" id="receiptFileInput" accept="image/*,.txt,.json,.csv" class="visually-hidden">
+            <div class="dropzone-inner" id="dropzoneContent">
+              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+              </svg>
+              <p class="dropzone-lead">Drag &amp; drop receipt or invoice image</p>
+              <p class="dropzone-sub">or <button type="button" class="btn-link" id="browseReceiptBtn">browse files</button> from your disk</p>
+              <div class="dropzone-pills">
+                <span>PNG</span><span>JPG</span><span>Client Bills</span><span>PDF/Text</span>
+              </div>
+            </div>
+            <!-- Image Preview when uploaded -->
+            <div id="receiptImagePreviewContainer" class="image-preview-container hidden">
+              <img id="receiptImagePreview" alt="Receipt preview">
+              <button id="clearReceiptImageBtn" class="btn btn-icon btn-danger remove-preview-btn" title="Remove image">&times;</button>
+            </div>
+          </div>
+
+          <!-- Document Text Stream / OCR Editor -->
+          <div class="form-group mt-3">
+            <label for="rawReceiptText" class="form-label">
+              <span>Extracted / Pasted Document Text:</span>
+              <span class="text-xs text-muted">Auto-parsed by local open-weight model</span>
+            </label>
+            <textarea id="rawReceiptText" class="form-control code-font" rows="6" placeholder="Paste invoice text, line items, receipt receipt transcripts, or write-offs here..."></textarea>
+          </div>
+
+          <div class="form-row mt-2">
+            <div class="form-group flex-1">
+              <label for="receiptClientTag" class="form-label">Client Code / Project (Optional)</label>
+              <input type="text" id="receiptClientTag" class="form-control" placeholder="e.g. ACME-REDESIGN, RET-2026">
+            </div>
+            <div class="form-group flex-1">
+              <label for="receiptExpenseType" class="form-label">Record Type</label>
+              <select id="receiptExpenseType" class="form-control">
+                <option value="expense">Operating Expense / Receipt</option>
+                <option value="client_invoice">Outbound Client Invoice</option>
+                <option value="subcontractor">Subcontractor Bill</option>
+                <option value="equipment">Hardware / Capital Asset</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="panel-actions">
+            <button id="parseReceiptBtn" class="btn btn-primary btn-lg flex-1">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+              Run Open-Model Extraction
+            </button>
+            <button id="clearReceiptFormBtn" class="btn btn-secondary">Clear</button>
+          </div>
+        </div>
+
+        <!-- Output Panel: Structured Extraction & Classification -->
+        <div class="glass-card panel">
+          <div class="panel-header">
+            <h3>2. Neural Extraction &amp; Tax Audit</h3>
+            <div class="header-badges">
+              <span id="extractionStatusBadge" class="badge badge-success">Ready</span>
+              <span class="badge badge-privacy">Private Memory</span>
+            </div>
+          </div>
+
+          <form id="extractedForm" class="extracted-details-form">
+            <div class="form-row">
+              <div class="form-group flex-2">
+                <label for="extVendor" class="form-label">Vendor / Merchant / Client</label>
+                <input type="text" id="extVendor" class="form-control font-semibold" placeholder="e.g. JetBrains, Figma, Client Corp">
+              </div>
+              <div class="form-group flex-1">
+                <label for="extDate" class="form-label">Document Date</label>
+                <input type="date" id="extDate" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label for="extInvoiceNumber" class="form-label">Invoice / Ref #</label>
+                <input type="text" id="extInvoiceNumber" class="form-control code-font" placeholder="INV-2026-042">
+              </div>
+              <div class="form-group flex-1">
+                <label for="extTotalAmount" class="form-label">Total Amount (₹ INR)</label>
+                <input type="number" step="0.01" id="extTotalAmount" class="form-control font-semibold text-lg" placeholder="0.00">
+              </div>
+              <div class="form-group flex-1">
+                <label for="extTaxAmount" class="form-label">GST / Tax Amount (₹ INR)</label>
+                <input type="number" step="0.01" id="extTaxAmount" class="form-control" placeholder="0.00">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label for="extCategory" class="form-label">Expense / Revenue Category</label>
+                <select id="extCategory" class="form-control">
+                  <option value="Software & SaaS">Software &amp; SaaS Subscriptions</option>
+                  <option value="Hardware & Gear">Hardware &amp; Office Equipment</option>
+                  <option value="Client Services (Revenue)">Client Services (Revenue)</option>
+                  <option value="Subcontractor & Freelance">Subcontractor &amp; Freelance Fees</option>
+                  <option value="Advertising & Marketing">Advertising &amp; Marketing</option>
+                  <option value="Travel & Meals">Travel &amp; Business Meals</option>
+                  <option value="Utilities & Internet">Home Office &amp; Utilities</option>
+                  <option value="Other Business Expense">Other Business Expense</option>
+                </select>
+              </div>
+              <div class="form-group flex-1">
+                <label for="extDeductibility" class="form-label">Tax Deductibility</label>
+                <select id="extDeductibility" class="form-control">
+                  <option value="100">100% Fully Deductible</option>
+                  <option value="50">50% Meals / Entertainment</option>
+                  <option value="0">0% (Client Revenue / Non-deductible)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row align-center checkbox-row">
+              <label class="custom-checkbox">
+                <input type="checkbox" id="extBillable">
+                <span class="checkmark"></span>
+                <span>Billable / Reimbursable by Client</span>
+              </label>
+              <div class="flex-1 text-right">
+                <span class="text-xs text-muted">Model Confidence: </span>
+                <span class="badge badge-subtle" id="extConfidence">98.4%</span>
+              </div>
+            </div>
+
+            <!-- Line Items Breakdown -->
+            <div class="form-group">
+              <label class="form-label">Line Items &amp; AI Audit Notes</label>
+              <div id="extLineItemsContainer" class="line-items-box code-font text-xs">
+                <div class="empty-state-text">No active items. Run extraction or pick a preset to preview structured line items.</div>
+              </div>
+            </div>
+
+            <div class="panel-actions">
+              <button type="button" id="saveRecordBtn" class="btn btn-success flex-1">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                  <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                  <polyline points="7 3 7 8 15 8"></polyline>
+                </svg>
+                Save to Private Ledger
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Ledger Table & Export Section -->
+      <div class="glass-card mt-4 table-card">
+        <div class="table-header">
+          <div>
+            <h3>Your Private Freelance Ledger</h3>
+            <p class="text-muted text-xs">Stored securely in your browser's private IndexedDB/LocalStorage. No cloud database, no tracking.</p>
+          </div>
+          <div class="table-actions">
+            <input type="text" id="ledgerSearchInput" class="form-control form-control-sm search-box" placeholder="Search vendor, client, #...">
+            <button id="exportCsvBtn" class="btn btn-secondary btn-sm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Export CSV
+            </button>
+            <button id="exportJsonBtn" class="btn btn-secondary btn-sm">Export JSON</button>
+            <button id="printReportBtn" class="btn btn-secondary btn-sm">Print Audit</button>
+            <button id="clearLedgerBtn" class="btn btn-outline-danger btn-sm">Clear All</button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table" id="ledgerTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Vendor / Client</th>
+                <th>Category</th>
+                <th>Invoice #</th>
+                <th>Type</th>
+                <th>Total</th>
+                <th>Deductible</th>
+                <th>Billable</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="ledgerTableBody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: MARKETPLACE LISTING CRAFTER -->
+    <!-- ========================================== -->
+    <section id="tab-listings" class="tab-pane">
+      <div class="view-header">
+        <div>
+          <h2>Etsy, eBay &amp; Shopify Listing Crafter</h2>
+          <p class="text-muted">Turn product specs and handmade photos into high-converting, platform-compliant descriptions, 13 SEO tags, and calculated profit margins. ₹0 API fees per listing.</p>
+        </div>
+        <div class="quick-samples">
+          <span class="text-sm">Load Product Sample:</span>
+          <button class="btn btn-chip" id="loadSampleMugBtn">Handmade Ceramic Mug (₹650)</button>
+          <button class="btn btn-chip" id="loadSampleJacketBtn">Vintage Bomber Jacket (₹4,200)</button>
+          <button class="btn btn-chip" id="loadSampleCandleBtn">Soy Candle Gift Set (₹1,150)</button>
+        </div>
+      </div>
+
+      <div class="studio-grid">
+        <!-- Listing Input Form -->
+        <div class="glass-card panel">
+          <div class="panel-header">
+            <h3>1. Product Specs &amp; Target Marketplace</h3>
+            <span class="badge badge-accent">Seller Assistant</span>
+          </div>
+
+          <!-- Product Image Uploader -->
+          <div class="dropzone listing-dropzone" id="productDropzone">
+            <input type="file" id="productImageInput" accept="image/*" class="visually-hidden">
+            <div class="dropzone-inner" id="productDropzoneContent">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+              </svg>
+              <p class="dropzone-lead">Drop product photo</p>
+              <p class="dropzone-sub">or <button type="button" class="btn-link" id="browseProductPhotoBtn">browse disk</button></p>
+            </div>
+            <div id="productImagePreviewContainer" class="image-preview-container hidden">
+              <img id="productImagePreview" alt="Product photo preview">
+              <button id="clearProductImageBtn" class="btn btn-icon btn-danger remove-preview-btn" title="Remove">&times;</button>
+            </div>
+          </div>
+
+          <div class="form-row mt-3">
+            <div class="form-group flex-2">
+              <label for="productTitleRaw" class="form-label">Core Item Name / Concept</label>
+              <input type="text" id="productTitleRaw" class="form-control" placeholder="e.g. Handmade Speckled Stoneware Coffee Mug">
+            </div>
+            <div class="form-group flex-1">
+              <label for="targetPlatform" class="form-label">Platform</label>
+              <select id="targetPlatform" class="form-control">
+                <option value="etsy">Etsy (Artisan &amp; Handmade)</option>
+                <option value="ebay">eBay (Vintage / Reseller)</option>
+                <option value="shopify">Shopify / Direct DTC</option>
+                <option value="amazon">Amazon Handmade</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label for="productCategory" class="form-label">Category</label>
+              <input type="text" id="productCategory" class="form-control" placeholder="e.g. Home &amp; Living, Pottery, Vintage Apparel">
+            </div>
+            <div class="form-group flex-1">
+              <label for="productCondition" class="form-label">Condition</label>
+              <select id="productCondition" class="form-control">
+                <option value="Brand New Handmade">Brand New Handmade</option>
+                <option value="Vintage Pre-Owned (Excellent)">Vintage Pre-Owned (Excellent)</option>
+                <option value="Vintage (Distressed / Character)">Vintage (Distressed / Character)</option>
+                <option value="Refurbished / Upcycled">Refurbished / Upcycled</option>
+                <option value="New with Tags">New with Tags (NWT)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="productMaterials" class="form-label">Key Materials, Dimensions &amp; Highlights</label>
+            <input type="text" id="productMaterials" class="form-control" placeholder="e.g. 14oz capacity, food-safe glaze, microwave safe, dishwasher safe, hand-thrown clay">
+          </div>
+
+          <div class="form-group">
+            <label for="productTone" class="form-label">Copywriting Tone</label>
+            <select id="productTone" class="form-control">
+              <option value="Warm & Story-driven Artisan">Warm &amp; Story-driven Artisan (Etsy Best Practice)</option>
+              <option value="Precise, Professional & Direct">Precise, Professional &amp; Direct (eBay Best Practice)</option>
+              <option value="Minimalist Luxury & Premium">Minimalist Luxury &amp; Premium (DTC / Shopify)</option>
+              <option value="Enthusiastic & Gift-Oriented">Enthusiastic &amp; Gift-Oriented (Holidays / Birthdays)</option>
+            </select>
+          </div>
+
+          <!-- Profit Margin Calculator Widget -->
+          <div class="calc-box">
+            <div class="calc-header">
+              <span class="font-semibold text-xs text-uppercase">Built-in Margin &amp; Price Calculator</span>
+              <span class="badge badge-subtle" id="platformFeeNotice">Etsy Fee: ~6.5% + ₹16</span>
+            </div>
+            <div class="form-row mt-2">
+              <div class="form-group flex-1">
+                <label for="calcCost" class="form-label text-xs">Cost to Make / Acquire (₹)</label>
+                <input type="number" step="10" id="calcCost" class="form-control form-control-sm" value="200">
+              </div>
+              <div class="form-group flex-1">
+                <label for="calcTargetMargin" class="form-label text-xs">Desired Margin (%)</label>
+                <input type="number" step="5" id="calcTargetMargin" class="form-control form-control-sm" value="65">
+              </div>
+              <div class="form-group flex-1">
+                <label for="calcTargetPrice" class="form-label text-xs">Suggested Retail (₹)</label>
+                <input type="number" step="50" id="calcTargetPrice" class="form-control form-control-sm font-semibold text-success" value="650">
+              </div>
+            </div>
+            <div class="calc-footer text-xs">
+              <span>Estimated Net Profit: <strong id="calcProfitResult" class="text-success">₹391.75</strong> per unit</span>
+              <button type="button" id="autoSuggestPriceBtn" class="btn-link text-xs">Auto-calc from margin</button>
+            </div>
+          </div>
+
+          <div class="panel-actions mt-3">
+            <button id="generateListingBtn" class="btn btn-primary btn-lg flex-1">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+              Craft SEO Listing with Local AI
+            </button>
+            <button id="clearListingInputBtn" class="btn btn-secondary">Reset</button>
+          </div>
+        </div>
+
+        <!-- Listing Output Panel -->
+        <div class="glass-card panel">
+          <div class="panel-header">
+            <h3>2. Optimized Listing Kit</h3>
+            <div class="header-badges">
+              <button id="copyAllListingBtn" class="btn btn-secondary btn-sm" title="Copy full listing">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                Copy Complete Kit
+              </button>
+            </div>
+          </div>
+
+          <!-- SEO Optimized Title -->
+          <div class="listing-output-section">
+            <div class="output-sub-header">
+              <label class="form-label">Optimized Search Title</label>
+              <div class="char-count" id="titleCharCount">0 / 140 chars</div>
+            </div>
+            <div class="copy-input-row">
+              <input type="text" id="outListingTitle" class="form-control font-semibold" readonly placeholder="High-converting search title will appear here...">
+              <button class="btn btn-icon btn-secondary copy-field-btn" data-target="outListingTitle" title="Copy title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Description Section -->
+          <div class="listing-output-section mt-3">
+            <div class="output-sub-header">
+              <label class="form-label">Storytelling Product Description</label>
+              <button class="btn-link text-xs copy-field-btn" data-target="outListingDesc">Copy Description</button>
+            </div>
+            <textarea id="outListingDesc" class="form-control" rows="8" readonly placeholder="Engaging buyer-centric description with materials, dimensions, styling tips, and care instructions..."></textarea>
+          </div>
+
+          <!-- 13 SEO Search Tags (Etsy / eBay search algorithm) -->
+          <div class="listing-output-section mt-3">
+            <div class="output-sub-header">
+              <label class="form-label">
+                <span>13 Platform Search Tags &amp; Keywords</span>
+                <span class="badge badge-subtle" id="tagCountBadge">13 Tags</span>
+              </label>
+              <button class="btn-link text-xs" id="copyTagsCommaBtn">Copy Comma-Separated</button>
+            </div>
+            <div id="tagsContainer" class="tags-cloud">
+              <span class="tag-chip empty">Generate to see 13 tailored ranking keywords</span>
+            </div>
+          </div>
+
+          <!-- Structured Attributes Checklist -->
+          <div class="listing-output-section mt-3">
+            <div class="output-sub-header">
+              <label class="form-label">Structured Attributes (For eBay Item Specifics / Etsy Filter)</label>
+            </div>
+            <div id="structuredAttributesList" class="attributes-grid text-xs">
+              <div class="empty-state-text">Ready to populate attributes</div>
+            </div>
+          </div>
+
+          <!-- Save to Product History -->
+          <div class="panel-actions mt-3">
+            <button id="saveListingHistoryBtn" class="btn btn-success flex-1">
+              Save Listing to Local Portfolio
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Saved Listings History -->
+      <div class="glass-card mt-4 table-card">
+        <div class="table-header">
+          <div>
+            <h3>Saved Product Listings</h3>
+            <p class="text-muted text-xs">Access past generated listings and tags anytime offline.</p>
+          </div>
+          <div>
+            <button id="exportListingsJsonBtn" class="btn btn-secondary btn-sm">Export Listings</button>
+            <button id="clearListingsHistoryBtn" class="btn btn-outline-danger btn-sm">Clear History</button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table" id="listingsTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Platform</th>
+                <th>Product Concept</th>
+                <th>Title</th>
+                <th>Target Price</th>
+                <th>Tags Count</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="listingsTableBody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: WHY OPEN INNOVATION? -->
+    <!-- ========================================== -->
+    <section id="tab-whyopen" class="tab-pane">
+      <div class="view-header">
+        <div>
+          <h2>Why Open Innovation Matters for Real Businesses</h2>
+          <p class="text-muted">A clear, quantitative breakdown of why open-weight models outperform closed APIs for freelancers, solopreneurs, and independent sellers.</p>
+        </div>
+      </div>
+
+      <!-- Hero comparison cards -->
+      <div class="why-grid">
+        <div class="why-card glass-card">
+          <div class="why-icon-wrap bg-primary">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </div>
+          <h3>1. Zero Marginal Operating Cost</h3>
+          <p class="why-desc">Closed APIs charge per token. For an Etsy flipper processing 500 vintage items a month with photo descriptions and 13 tags, cloud APIs cost ₹2,500–₹6,000/month forever. Open weights run on hardware you already own for ₹0.00.</p>
+          <div class="why-stat">
+            <span class="stat-big text-success">₹50,000+</span>
+            <span class="stat-label">Saved per year for solopreneurs</span>
+          </div>
+        </div>
+
+        <div class="why-card glass-card">
+          <div class="why-icon-wrap bg-accent">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <h3>2. Absolute Client Data Privacy</h3>
+          <p class="why-desc">Freelancers sign NDAs. Sending client invoices, proprietary design rates, and customer receipts through third-party cloud servers violates confidentiality agreements and risks feeding your client's data into proprietary training sets.</p>
+          <div class="why-stat">
+            <span class="stat-big text-accent">0 Bytes</span>
+            <span class="stat-label">Ever leave your machine</span>
+          </div>
+        </div>
+
+        <div class="why-card glass-card">
+          <div class="why-icon-wrap bg-warning">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          </div>
+          <h3>3. Complete Offline Reliability</h3>
+          <p class="why-desc">Whether working on a flight, in a flea market with bad reception, or during an ISP outage, open-weight models run in-browser (Transformers.js/WebGPU) or locally via Ollama without requiring an internet connection.</p>
+          <div class="why-stat">
+            <span class="stat-big text-highlight">100%</span>
+            <span class="stat-label">Offline functionality guaranteed</span>
+          </div>
+        </div>
+
+        <div class="why-card glass-card">
+          <div class="why-icon-wrap bg-danger">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <h3>4. Freedom from Vendor Lock-in</h3>
+          <p class="why-desc">Closed API providers frequently deprecate model versions, hike pricing, or change moderation boundaries without notice. With open weights (Llama 3.2, Qwen 2.5, Mistral), your workflow remains stable and under your complete control.</p>
+          <div class="why-stat">
+            <span class="stat-big text-danger">No API</span>
+            <span class="stat-label">Deprecations or surprise bills</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Cost & ROI Simulator -->
+      <div class="glass-card mt-4 p-4">
+        <div class="calc-header mb-3">
+          <div>
+            <h3>Interactive Solopreneur Cost Calculator</h3>
+            <p class="text-muted text-xs">Estimate how much money you save by choosing open-weight local AI over commercial closed APIs.</p>
+          </div>
+        </div>
+
+        <div class="roi-simulator-grid">
+          <div class="roi-controls">
+            <div class="form-group">
+              <label for="sliderInvoices" class="form-label">
+                <span>Invoices &amp; Receipts per Month:</span>
+                <strong id="valInvoices" class="text-accent">120</strong>
+              </label>
+              <input type="range" id="sliderInvoices" min="10" max="1000" step="10" value="120" class="range-slider">
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="sliderListings" class="form-label">
+                <span>Etsy / eBay Listings per Month:</span>
+                <strong id="valListings" class="text-accent">250</strong>
+              </label>
+              <input type="range" id="sliderListings" min="10" max="1500" step="10" value="250" class="range-slider">
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="selectCloudTier" class="form-label">Closed API Comparison Tier</label>
+              <select id="selectCloudTier" class="form-control">
+                <option value="gpt4o">Commercial Proprietary API (GPT-4o / Claude 3.5 @ ₹5.00 / run)</option>
+                <option value="copilot">SaaS Subscription (Copilot / Jasper @ ₹3,200 / user / mo)</option>
+                <option value="budget">Budget Closed API (GPT-4o-mini @ ₹1.25 / run)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="roi-results-box">
+            <div class="roi-result-item">
+              <span class="roi-label">Closed Cloud API Cost:</span>
+              <span class="roi-val text-danger" id="roiCloudCost">₹22,200 / year</span>
+            </div>
+            <div class="roi-result-item">
+              <span class="roi-label">SideHustle AI (Open Weights):</span>
+              <span class="roi-val text-success" id="roiOpenCost">₹0.00 / year</span>
+            </div>
+            <div class="roi-divider"></div>
+            <div class="roi-result-hero">
+              <span class="roi-hero-label">Your Net Annual Side Hustle Savings:</span>
+              <span class="roi-hero-val text-success" id="roiNetSavings">₹22,200</span>
+              <p class="text-xs text-muted mt-1">That's pure profit directly back into your freelance business.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- MODEL ENGINE CONFIG MODAL -->
+  <!-- ========================================== -->
+  <div id="configModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card glass-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">Open-Weight AI Engine Settings</h3>
+        <button id="closeConfigModalBtn" class="btn btn-icon btn-secondary" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <p class="text-sm text-muted mb-3">Choose how open-weight inference executes on your system. No API keys required.</p>
+
+        <div class="engine-option-list">
+          <label class="engine-option active">
+            <input type="radio" name="engineBackend" value="builtin" checked>
+            <div class="engine-opt-details">
+              <div class="engine-opt-title">
+                <strong>Built-in Local Neural Parser</strong>
+                <span class="badge badge-success">Zero Setup • Instant</span>
+              </div>
+              <p class="text-xs text-muted">Runs 100% locally in browser memory. Zero latency, works on every computer, phone, or tablet.</p>
+            </div>
+          </label>
+
+          <label class="engine-option">
+            <input type="radio" name="engineBackend" value="transformers">
+            <div class="engine-opt-details">
+              <div class="engine-opt-title">
+                <strong>Transformers.js (Hugging Face WebGPU)</strong>
+                <span class="badge badge-subtle">In-Browser Open Weights</span>
+              </div>
+              <p class="text-xs text-muted">Downloads open weights (e.g. Xenova/SmolLM2-135M or Xenova/Qwen1.5-0.5B) directly to browser IndexedDB and executes on your device's WebGPU.</p>
+            </div>
+          </label>
+
+          <label class="engine-option">
+            <input type="radio" name="engineBackend" value="ollama">
+            <div class="engine-opt-details">
+              <div class="engine-opt-title">
+                <strong>Local Ollama Server (Desktop GPU)</strong>
+                <span class="badge badge-subtle">http://localhost:11434</span>
+              </div>
+              <p class="text-xs text-muted">Connects to your local Ollama instance running Llama 3.2, Mistral, or Qwen 2.5 with maximum precision.</p>
+            </div>
+          </label>
+        </div>
+
+        <div id="ollamaSettingsGroup" class="ollama-settings mt-3 hidden">
+          <div class="form-row">
+            <div class="form-group flex-2">
+              <label for="ollamaHostInput" class="form-label text-xs">Ollama Endpoint</label>
+              <input type="text" id="ollamaHostInput" class="form-control form-control-sm code-font" value="http://localhost:11434">
+            </div>
+            <div class="form-group flex-1">
+              <label for="ollamaModelInput" class="form-label text-xs">Model Name</label>
+              <input type="text" id="ollamaModelInput" class="form-control form-control-sm code-font" value="llama3.2">
+            </div>
+          </div>
+          <button id="testOllamaBtn" class="btn btn-secondary btn-sm mt-2">
+            Test Connection to Local Ollama
+          </button>
+          <span id="ollamaTestStatus" class="text-xs ml-2"></span>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button id="saveEngineSettingsBtn" class="btn btn-primary">Apply Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
